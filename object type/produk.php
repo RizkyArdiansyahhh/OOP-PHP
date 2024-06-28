@@ -21,22 +21,27 @@ class Produk{   // ini adalah class
 
     // Memuat Method
     public function getLabel(){
-        return "$this->jenis, $this->nama, $this->penulis";
+        return "$this->nama, $this->penulis";
     }
 
+}
+
+class CetakInfoProduk{
+    public function cetak(Produk $produk){
+        $str = "{$produk->jenis} | {$produk->getLabel()} , {$produk->penerbit} , (Rp. {$produk->harga})";
+        return $str;
+    }
 }
 
 
 $produk1 = new Produk("game","Naruto","Rizky","Riski Corp", 30000); 
 
-var_dump($produk1);
-echo $produk1->getLabel();
-echo "<br>";
-
 $produk2 = new Produk("Film", "Naruto", "Riski", "Riski Corp", 40000);
 
-var_dump($produk2);
-echo $produk2->getLabel();
+
+$infoProduk = new CetakInfoProduk();
+echo $infoProduk->cetak($produk1);
+
 
 
 ?>
