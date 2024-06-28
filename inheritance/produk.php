@@ -3,7 +3,7 @@
 
 class Produk{   // ini adalah class
     // Membuat property
-    public  $jenis, 
+    public  
             $nama,
             $penulis,
             $penerbit,
@@ -13,8 +13,7 @@ class Produk{   // ini adalah class
 
 
     // Constructor
-    public function __construct($jenis="Jenis", $nama="Nama", $penulis="Penulis", $penerbit="Penerbit", $harga=0, $jmlJam = 0, $jmlHalaman = 0){
-        $this->jenis = $jenis;
+    public function __construct($nama="Nama", $penulis="Penulis", $penerbit="Penerbit", $harga=0, $jmlJam = 0, $jmlHalaman = 0){
         $this->nama=$nama;
         $this->penulis=$penulis;
         $this->penerbit=$penerbit;
@@ -28,15 +27,10 @@ class Produk{   // ini adalah class
         return "$this->penulis, $this->penerbit";
     }
 
-    public function getInfoLengkap(){
+    public function getInfoProduk(){
         // game : Naruto | Rizky, Riski Corp, (Rp. 30000) ~ 50 jam
         // Komik : Naruto | Rizky, Riski Corp, (Rp. 30000) - 100 Halaman
-        $str = "{$this->jenis} : {$this->nama} | {$this->getLabel()}, (Rp. {$this->harga})";
-        if($this->jenis == "komik"){
-            $str.= " - {$this->jmlHalaman} Halaman";
-        }else if($this->jenis == "game"){
-            $str .= " ~ {$this->jmlJam} Jam";
-        }
+        $str = "{$this->nama} | {$this->getLabel()}, (Rp. {$this->harga})";
         return $str;
     }
 
@@ -49,21 +43,35 @@ class CetakInfoProduk{
     }
 }
 
+class Komik extends Produk{
+    public function getInfoProduk(){
+        $str = "komik : {$this->nama} | {$this->getLabel()}, (Rp. {$this->harga}) - {$this->jmlHalaman} Halaman";
+return $str;
+    }
+}
 
-$produk1 = new Produk("game","Naruto","Rizky","Riski Corp", 30000, 50, 0); 
+class Game extends Produk{
+    public function getInfoProduk(){
+        $str = "Game : {$this->nama} | {$this->getLabel()}, (Rp. {$this->harga}) - {$this->jmlJam} Jam";
+    return $str;
+    }
+}
 
-$produk2 = new Produk("komik", "Naruto", "Riski", "Riski Corp", 40000, 0, 100);
+
+$produk1 = new Game("Naruto","Rizky","Riski Corp", 30000, 50, 0); 
+
+$produk2 = new Komik("Naruto", "Riski", "Riski Corp", 40000, 0, 100);
 
 
 // $infoProduk = new CetakInfoProduk();
 // echo $infoProduk->cetak($produk1);
 
 // game : Naruto | Rizky, Riski Corp, (Rp. 30000) ~ 50 jam
-echo $produk1->getInfoLengkap();
+echo $produk1->getInfoProduk();
 echo "<br>";
 
 // Komik : Naruto | Rizky, Riski Corp, (Rp. 30000) - 100 Halaman
-echo $produk2->getInfoLengkap();
+echo $produk2->getInfoProduk();
 
 
 
