@@ -7,19 +7,15 @@ class Produk{   // ini adalah class
             $nama,
             $penulis,
             $penerbit,
-            $harga,
-            $jmlJam,
-            $jmlHalaman;
+            $harga;
 
 
     // Constructor
-    public function __construct($nama="Nama", $penulis="Penulis", $penerbit="Penerbit", $harga=0, $jmlJam = 0, $jmlHalaman = 0){
+    public function __construct($nama="Nama", $penulis="Penulis", $penerbit="Penerbit", $harga=0){
         $this->nama=$nama;
         $this->penulis=$penulis;
         $this->penerbit=$penerbit;
         $this->harga=$harga;
-        $this->jmlJam =$jmlJam;
-        $this->jmlHalaman = $jmlHalaman;
     }
 
     // Memuat Method
@@ -44,23 +40,36 @@ class CetakInfoProduk{
 }
 
 class Komik extends Produk{
+    public $jumlahHalaman;
+
+    public function __construct($nama="Nama", $penulis="Penulis", $penerbit="Penerbit", $harga=0, $jumlahHalaman = 0){
+        parent::__construct($nama, $penulis, $penerbit, $harga);
+        $this->jumlahHalaman = $jumlahHalaman;
+    }
+
     public function getInfoProduk(){
-        $str = "komik : {$this->nama} | {$this->getLabel()}, (Rp. {$this->harga}) - {$this->jmlHalaman} Halaman";
+        $str = "komik : ". parent::getInfoProduk()  ." - {$this->jumlahHalaman} Halaman";
 return $str;
     }
 }
 
 class Game extends Produk{
+    public $jumlahJam;
+
+    public function __construct($nama="Nama", $penulis="Penulis", $penerbit="Penerbit", $harga=0, $jumlahJam = 0){
+        parent::__construct($nama, $penulis, $penerbit, $harga);
+        $this->jumlahJam = $jumlahJam;
+    }
     public function getInfoProduk(){
-        $str = "Game : {$this->nama} | {$this->getLabel()}, (Rp. {$this->harga}) - {$this->jmlJam} Jam";
+        $str = "Game : ". parent::getInfoProduk() ." - {$this->jumlahJam} Jam";
     return $str;
     }
 }
 
 
-$produk1 = new Game("Naruto","Rizky","Riski Corp", 30000, 50, 0); 
+$produk1 = new Game("Naruto","Rizky","Riski Corp", 30000, 50); 
 
-$produk2 = new Komik("Naruto", "Riski", "Riski Corp", 40000, 0, 100);
+$produk2 = new Komik("Naruto", "Riski", "Riski Corp", 40000, 100);
 
 
 // $infoProduk = new CetakInfoProduk();
