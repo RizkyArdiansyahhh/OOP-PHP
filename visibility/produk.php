@@ -6,8 +6,10 @@ class Produk{   // ini adalah class
     public  
             $nama,
             $penulis,
-            $penerbit,
-            $harga;
+            $penerbit;
+    protected $diskon = 0;
+
+    private $harga;
 
 
     // Constructor
@@ -30,6 +32,13 @@ class Produk{   // ini adalah class
         return $str;
     }
 
+    public function getHarga(){
+        return $this->harga - ($this->harga * $this->diskon / 100);
+    }
+
+    public function setDiskon($diskon){
+        $this->diskon = $diskon;
+    }
 }
 
 class CetakInfoProduk{
@@ -81,6 +90,13 @@ echo "<br>";
 
 // Komik : Naruto | Rizky, Riski Corp, (Rp. 30000) - 100 Halaman
 echo $produk2->getInfoProduk();
+echo "<br>";
+
+echo $produk1->getHarga();
+$produk1->setDiskon(50);
+echo "<br>";
+echo $produk1->getHarga();
+
 
 
 
