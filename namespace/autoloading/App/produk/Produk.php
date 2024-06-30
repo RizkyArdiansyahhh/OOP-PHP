@@ -1,4 +1,6 @@
 <?php
+namespace App\Produk;
+
 abstract class Produk{   // ini adalah class
     // Membuat property
     protected  $nama,

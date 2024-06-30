@@ -1,4 +1,6 @@
 <?php
+namespace App\Produk;
+
 class Komik extends Produk implements infoProduk{
     public $jumlahHalaman;
 
