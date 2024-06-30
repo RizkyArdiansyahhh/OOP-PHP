@@ -1,9 +1,13 @@
 <?php 
 
+interface infoProduk{
+    public function getInfoProduk();
+}
+
 
 abstract class Produk{   // ini adalah class
     // Membuat property
-    private  $nama,
+    protected  $nama,
             $penulis,
             $penerbit,
             $diskon = 0,
@@ -22,15 +26,10 @@ abstract class Produk{   // ini adalah class
     public function getLabel(){
         return "$this->penulis, $this->penerbit";
     }
-
-    abstract public function getInfoProduk();
     
-    public function infoProduk(){
-        // game : Naruto | Rizky, Riski Corp, (Rp. 30000) ~ 50 jam
-        // Komik : Naruto | Rizky, Riski Corp, (Rp. 30000) - 100 Halaman
-        $str = "{$this->nama} | {$this->getLabel()}, (Rp. {$this->harga})";
-        return $str;
-    }
+    abstract public function infoProduk();
+
+
     public function setNama($nama){
         $this->nama = $nama;
     }
@@ -82,12 +81,18 @@ class CetakInfoProduk{
     }
 }
 
-class Komik extends Produk{
+class Komik extends Produk implements infoProduk{
     public $jumlahHalaman;
 
     public function __construct($nama="Nama", $penulis="Penulis", $penerbit="Penerbit", $harga=0, $jumlahHalaman = 0){
         parent::__construct($nama, $penulis, $penerbit, $harga);
         $this->jumlahHalaman = $jumlahHalaman;
+    }
+    public function infoProduk(){
+        // game : Naruto | Rizky, Riski Corp, (Rp. 30000) ~ 50 jam
+        // Komik : Naruto | Rizky, Riski Corp, (Rp. 30000) - 100 Halaman
+        $str = "{$this->nama} | {$this->getLabel()}, (Rp. {$this->harga})";
+        return $str;
     }
 
     public function getInfoProduk(){
@@ -96,12 +101,18 @@ class Komik extends Produk{
     }
 }
 
-class Game extends Produk{
+class Game extends Produk implements infoProduk{
     public $jumlahJam;
 
     public function __construct($nama="Nama", $penulis="Penulis", $penerbit="Penerbit", $harga=0, $jumlahJam = 0){
         parent::__construct($nama, $penulis, $penerbit, $harga);
         $this->jumlahJam = $jumlahJam;
+    }
+    public function infoProduk(){
+        // game : Naruto | Rizky, Riski Corp, (Rp. 30000) ~ 50 jam
+        // Komik : Naruto | Rizky, Riski Corp, (Rp. 30000) - 100 Halaman
+        $str = "{$this->nama} | {$this->getLabel()}, (Rp. {$this->harga})";
+        return $str;
     }
     public function getInfoProduk(){
         $str = "Game : ". $this->infoProduk() ." - {$this->jumlahJam} Jam";
